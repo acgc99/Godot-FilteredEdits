@@ -13,6 +13,7 @@ Filter modes:
 Notes:
 - "." and "-" count as characters in max length.
 - `FilteredLineEdit` can clamp text numeric value when a numeric filter mode is selected, but `FilteredTextEdit` cannot (base class lacks of `text_submitted` signal).
+- I [requested](https://github.com/godotengine/godot-proposals/issues/7193) these features to be implemented in base Godot, that would require changing base node signals. Meanwhile, I created this workaround.
 
 ## Known issues
 
