@@ -1,2 +1,19 @@
 # Godot-FilteredEdits
-Extends base nodes LineEdit and TextEdit to filter user input.
+
+Extends base nodes `LineEdit` and `TextEdit` with `FilteredLineEdit` and `FilteredTextEdit`, respectively, to filter user input. `FilteredLineEdit` also allows numeric text value clamping.
+
+Filter modes:
+- `none`: no filter.
+- `no-num`: no 0-9 characters.
+- `+0i`: positive or zero integer.
+- `i`: integer.
+- `+0f` positive or zero float.
+- `f` float.
+
+Notes:
+- "." and "-" count as characters in max length.
+- `FilteredLineEdit` can clamp text numeric value when a numeric filter mode is selected, but `FilteredTextEdit` cannot (base class lacks of `text_submitted` signal).
+
+## Known issues
+
+- If you type very quickly in a numeric filter mode mixing numbers and letters, letters may pass the filtering. I think this is a limitation by how `LineEdit` and `TextEdit` handle input.
