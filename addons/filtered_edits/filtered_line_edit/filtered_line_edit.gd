@@ -201,4 +201,4 @@ func clamp_text_value(new_text: String) -> void:
 	var value: float = float(new_text)
 	value = clamp(value, min_value, max_value)
 	text = str(value)
-	caret_column = text.length()
+	caret_column = new_char_index + 1
