@@ -30,3 +30,4 @@ offset_left = -522.0
 offset_bottom = 220.0
 grow_horizontal = 0
 script = ExtResource("2_k0bgo")
+filter_mode = 4
