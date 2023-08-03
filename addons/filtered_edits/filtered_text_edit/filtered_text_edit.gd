@@ -47,27 +47,31 @@ func set_filter_mode(new_filter_mode: int) -> void:
 	elif filter_mode == 1:
 		reg.compile("\\d")
 		filter = func filter_no_num(new_char_: String) -> String:
-			if reg.search(new_char_) == null: return new_char_
+			if reg.search(new_char_) == null:
+				return new_char_
 			return ""
 	# +0i
 	elif filter_mode == 2:
 		reg.compile("\\d")
 		filter = func filter_p0_i(new_char_: String) -> String:
-			if reg.search(new_char_) == null: return ""
+			if reg.search(new_char_) == null:
+				return ""
 			elif text == "0" and get_caret_column() != 0:
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
-					set_text("")
-				else: return ""
+					text = ""
+				else:
+					return ""
 			return new_char_
 	# i
 	elif filter_mode == 3:
 		reg.compile("[\\d-]")
 		filter = func filter_i(new_char_: String) -> String:
-			if reg.search(new_char_) == null: return ""
+			if reg.search(new_char_) == null:
+				return ""
 			elif new_char_ == "-":
 				if text.contains("-"):
-					set_text(text.erase(0))
+					text = text.erase(0)
 					set_caret_column(text.length())
 					# Do this change to avoid passing new_text_length < old_text_length
 					new_text_length = old_text_length
@@ -83,39 +87,48 @@ func set_filter_mode(new_filter_mode: int) -> void:
 			elif text == "0" and get_caret_column() != 0:
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
-					set_text("")
-				else: return ""
+					text = ""
+				else:
+					return ""
 			elif text == "-0" and get_caret_column() != 0:
 				if new_char_ != "0":
-					set_text("-")
+					text = "-"
 					set_caret_column(text.length())
-				else: return ""
+				else:
+					return ""
 			return new_char_
 	# +0f
 	elif filter_mode == 4:
 		reg.compile("[\\d.]")
 		filter = func filter_p0_f(new_char_: String) -> String:
-			if reg.search(new_char_) == null: return ""
+			if reg.search(new_char_) == null:
+				return ""
 			elif new_char_ == ".":
-				if text.contains("."): return ""
-				elif text.length() == 0: insert_text_at_caret("0")
+				if text.contains("."):
+					return ""
+				elif text.length() == 0:
+					insert_text_at_caret("0")
 			elif text == "0" and get_caret_column() != 0:
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
-					set_text("")
-				else: return ""
+					text = ""
+				else:
+					return ""
 			return new_char_
 	# f
 	elif filter_mode == 5:
 		reg.compile("[\\d.-]")
 		filter = func filter_f(new_char_: String) -> String:
-			if reg.search(new_char_) == null: return ""
+			if reg.search(new_char_) == null:
+				return ""
 			elif new_char_ == ".":
-				if text.contains("."): return ""
-				elif text.length() == 0: insert_text_at_caret("0")
+				if text.contains("."):
+					return ""
+				elif text.length() == 0:
+					insert_text_at_caret("0")
 			elif new_char_ == "-":
 				if text.contains("-"):
-					set_text(text.erase(0))
+					text = text.erase(0)
 					set_caret_column(text.length())
 					# Do this change to avoid passing new_text_length < old_text_length
 					new_text_length = old_text_length
@@ -131,13 +144,15 @@ func set_filter_mode(new_filter_mode: int) -> void:
 			elif text == "0" and get_caret_column() != 0:
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
-					set_text("")
-				else: return ""
+					text = ""
+				else:
+					return ""
 			elif text == "-0" and get_caret_column() != 0:
 				if new_char_ != "0":
-					set_text("-")
+					text = "-"
 					set_caret_column(text.length())
-				else: return ""
+				else:
+					return ""
 			return new_char_
 
 
