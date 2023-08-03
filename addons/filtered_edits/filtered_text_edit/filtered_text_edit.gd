@@ -12,7 +12,10 @@ extends TextEdit
 ## [param +0f] (positive float) or
 ## [param f] (float).
 ## Note that "." and "-" count as characters in max length.
-@export_enum("none", "no-num", "+0i", "i", "+0f", "f") var filter_mode: int = 0
+@export_enum("none", "no-num", "+0i", "i", "+0f", "f") var filter_mode: int = 0:
+	set(filter_mode_):
+		filter_mode = filter_mode_
+		_update_filter_mode()
 
 ## [code]RegEx[/code] to filter text.
 var reg: RegEx = RegEx.new()
@@ -27,18 +30,19 @@ var new_char: String = ""
 ## Index of [param new_char] in [param new_text] in [code]_on_text_changed[/code].
 var new_char_index: int
 ## Function called for filtering.
-var filter: Callable
+var filter: Callable =  func filter_none(new_char_: String) -> String:
+	return new_char_
 
 
 func _ready():
 	old_text = text
 	old_text_length = old_text.length()
-	set_filter_mode(filter_mode)
 	text_changed.connect(_on_text_changed)
 
 
-func set_filter_mode(new_filter_mode: int) -> void:
-	filter_mode = new_filter_mode
+## Called when [param filter_mode] is set.
+func _update_filter_mode() -> void:
+	print(filter_mode)
 	# none
 	if filter_mode == 0:
 		filter = func filter_none(new_char_: String) -> String:
@@ -154,10 +158,6 @@ func set_filter_mode(new_filter_mode: int) -> void:
 				else:
 					return ""
 			return new_char_
-
-
-func get_filter_mode() -> int:
-	return filter_mode
 
 
 ## Manages text input and filtering.
