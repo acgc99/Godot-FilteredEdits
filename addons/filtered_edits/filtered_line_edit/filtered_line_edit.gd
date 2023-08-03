@@ -44,7 +44,6 @@ func _ready():
 	old_text = text
 	old_text_length = old_text.length()
 	text_changed.connect(_on_text_changed)
-	text_submitted.connect(_on_text_submitted)
 
 
 ## Called when [param filter_mode] is set.
@@ -192,14 +191,14 @@ func _on_text_changed(new_text: String) -> void:
 	insert_text_at_caret(new_char)
 	# Update old length
 	old_text_length = new_text_length
+	clamp_text_value(text)
 
 
-## Clamps the numeric representation of the text if [param filter_mode] is a
-## numeric mode.
-func _on_text_submitted(new_text: String) -> void:
-	if filter_mode < 2: return
+## Clamps the numeric value of the text if [param filter_mode] is a numeric mode.
+func clamp_text_value(new_text: String) -> void:
+	if filter_mode < 2:
+		return
 	var value: float = float(new_text)
 	value = clamp(value, min_value, max_value)
-	if filter_mode == 2: value = int(value)
 	text = str(value)
 	caret_column = text.length()

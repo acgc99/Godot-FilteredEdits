@@ -14,16 +14,19 @@ grow_vertical = 2
 script = ExtResource("1_v67m5")
 
 [node name="FilteredLineEdit" type="LineEdit" parent="."]
-layout_mode = 2
-offset_right = 616.0
-offset_bottom = 264.0
+layout_mode = 1
+offset_right = 287.0
+offset_bottom = 44.0
 size_flags_horizontal = 3
 script = ExtResource("1_qbigl")
 filter_mode = 2
 
 [node name="FilteredTextEdit" type="TextEdit" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 430.0
-offset_bottom = 174.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -522.0
+offset_bottom = 220.0
+grow_horizontal = 0
 script = ExtResource("2_k0bgo")
