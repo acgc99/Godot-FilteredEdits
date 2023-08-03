@@ -16,7 +16,8 @@ extends LineEdit
 	set(filter_mode_):
 		filter_mode = filter_mode_
 		_update_filter_mode()
-		
+## To set [param filter_mode] on code.
+enum {NONE, NONUM, P0I, I, P0F, F}
 ## Maximun numeric value of the [param text]. Only used in numeric [param filter_mode].
 @export var max_value: float = INF
 ## Minimun numeric value of the [param text]. Only used in numeric [param filter_mode].

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://idqmkxnrs7ta"]
+[gd_scene load_steps=4 format=3 uid="uid://idqmkxnrs7ta"]
 
 [ext_resource type="Script" path="res://addons/filtered_edits/filtered_line_edit/filtered_line_edit.gd" id="1_qbigl"]
+[ext_resource type="Script" path="res://main.gd" id="1_v67m5"]
 [ext_resource type="Script" path="res://addons/filtered_edits/filtered_text_edit/filtered_text_edit.gd" id="2_k0bgo"]
 
 [node name="Control" type="Control"]
@@ -10,9 +11,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_v67m5")
 
 [node name="FilteredLineEdit" type="LineEdit" parent="."]
-visible = false
 layout_mode = 2
 offset_right = 616.0
 offset_bottom = 264.0
@@ -21,6 +22,7 @@ script = ExtResource("1_qbigl")
 filter_mode = 2
 
 [node name="FilteredTextEdit" type="TextEdit" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 430.0
 offset_bottom = 174.0

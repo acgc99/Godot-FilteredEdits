@@ -16,7 +16,6 @@ extends TextEdit
 	set(filter_mode_):
 		filter_mode = filter_mode_
 		_update_filter_mode()
-
 ## [code]RegEx[/code] to filter text.
 var reg: RegEx = RegEx.new()
 ## Text before inserting a new character.
