@@ -22,7 +22,6 @@ enum {NONE, NONUM, P0I, I, P0F, F}
 @export var max_value: float = INF
 ## Minimun numeric value of the [param text]. Only used in numeric [param filter_mode].
 @export var min_value: float = -INF
-
 ## [code]RegEx[/code] to filter text.
 var reg: RegEx = RegEx.new()
 ## Text before inserting a new character.
@@ -191,14 +190,15 @@ func _on_text_changed(new_text: String) -> void:
 	insert_text_at_caret(new_char)
 	# Update old length
 	old_text_length = new_text_length
-	clamp_text_value(text)
+	# Clamp value
+	clamp_text_value()
 
 
 ## Clamps the numeric value of the text if [param filter_mode] is a numeric mode.
-func clamp_text_value(new_text: String) -> void:
+func clamp_text_value() -> void:
 	if filter_mode < 2:
 		return
-	var value: float = float(new_text)
+	var value: float = float(text)
 	value = clamp(value, min_value, max_value)
 	text = str(value)
 	caret_column = new_char_index + 1

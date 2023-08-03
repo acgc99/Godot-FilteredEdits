@@ -20,6 +20,7 @@ offset_bottom = 44.0
 size_flags_horizontal = 3
 script = ExtResource("1_qbigl")
 filter_mode = 2
+max_value = 10.0
 
 [node name="FilteredTextEdit" type="TextEdit" parent="."]
 layout_mode = 1
@@ -30,4 +31,6 @@ offset_left = -522.0
 offset_bottom = 220.0
 grow_horizontal = 0
 script = ExtResource("2_k0bgo")
-filter_mode = 4
+filter_mode = 5
+max_value = 10.0
+min_value = -10.0

@@ -16,6 +16,10 @@ extends TextEdit
 	set(filter_mode_):
 		filter_mode = filter_mode_
 		_update_filter_mode()
+## Maximun numeric value of the [param text]. Only used in numeric [param filter_mode].
+@export var max_value: float = INF
+## Minimun numeric value of the [param text]. Only used in numeric [param filter_mode].
+@export var min_value: float = -INF
 ## [code]RegEx[/code] to filter text.
 var reg: RegEx = RegEx.new()
 ## Current caret line.
@@ -205,3 +209,17 @@ func _on_text_changed() -> void:
 	insert_text_at_caret(new_char)
 	# Update old length
 	old_text_length = new_text_length
+	# Clamp values
+	clamp_text_values()
+
+
+## Clamps the numeric value of the lines if [param filter_mode] is a numeric mode.
+func clamp_text_values() -> void:
+	if filter_mode < 2:
+		return
+	var value: float
+	for i in range(get_line_count()):
+		value = float(get_line(i))
+		value = clamp(value, min_value, max_value)
+		set_line(i, str(value))
+		set_caret_line(i)
