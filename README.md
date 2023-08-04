@@ -20,7 +20,6 @@ Notes:
 
 #### Known issues
 
-- If you type very quickly in a numeric filter mode mixing numbers and letters, letters may pass the filtering. I think this is a limitation by how `LineEdit` and `TextEdit` handle input.
 - Won't fix issue [Limitation: select all text and press `-`/`.`](https://github.com/acgc99/Godot-FilteredEdits/issues/15#issue).
 - There might be some bugs, check issues and open a new one if you find some.
 
