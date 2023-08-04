@@ -64,6 +64,7 @@ func _update_filter_mode() -> void:
 		filter = func filter_p0_i(new_char_: String) -> String:
 			if reg.search(new_char_) == null:
 				return ""
+			# 0 replacement
 			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
@@ -94,12 +95,14 @@ func _update_filter_mode() -> void:
 					text = old_text.insert(0, "-")
 					new_char_index += 1
 					return ""
+			# 0 replacement
 			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
 				else:
 					return ""
+			# 0 replacement
 			elif old_text == "-0":
 				if new_char_ != "0":
 					if new_char_index == 2:
@@ -108,6 +111,9 @@ func _update_filter_mode() -> void:
 						return ""
 				else:
 					return ""
+			# Avoid things like '1-2'
+			elif new_char != "-" and old_text.contains("-") and new_char_index == 0:
+				return ""
 			return new_char_
 	# +0f
 	elif filter_mode == 4:
@@ -122,12 +128,14 @@ func _update_filter_mode() -> void:
 					text = "0."
 					new_char_index = text.length()
 					return ""
+			# 0 replacement
 			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
 				else:
 					return ""
+			# 0 replacement
 			elif old_text == "0.":
 				if new_char_ != "0":
 					if new_char_index == 1:
@@ -170,18 +178,21 @@ func _update_filter_mode() -> void:
 					text = old_text.insert(0, "-")
 					new_char_index += 1
 					return ""
+			# 0 replacement
 			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
 				else:
 					return ""
+			# 0 replacement
 			elif old_text == "-0":
 				if new_char_ != "0":
 					if new_char_index == 2:
 						text = "-%s" % new_char_
 						new_char_index = text.length()
 						return ""
+			# 0 replacement
 			elif old_text == "0.":
 				if new_char_ != "0":
 					if new_char_index == 1:
@@ -190,6 +201,7 @@ func _update_filter_mode() -> void:
 						return ""
 				else:
 					return ""
+			# 0 replacement
 			elif old_text == "-0.":
 				if new_char_ != "0":
 					if new_char_index == 2:
@@ -198,6 +210,9 @@ func _update_filter_mode() -> void:
 						return ""
 				else:
 					return ""
+			# Avoid things like '1-2'
+			elif new_char != "-" and old_text.contains("-") and new_char_index == 0:
+				return ""
 			return new_char_
 
 
