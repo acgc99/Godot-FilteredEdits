@@ -229,6 +229,11 @@ func _on_text_changed() -> void:
 	# If deleting text, pass
 	if new_text_length < old_text_length:
 		old_text_length = new_text_length
+		# Avoid deleting only '0' from '0.'/'0-', delete all
+		if new_text == "-" or new_text == ".":
+			set_line(current_caret_line, "")
+			old_text = ""
+			old_text_length = 0
 		return
 	# Else, need to determine the new character and the old text
 	# New character

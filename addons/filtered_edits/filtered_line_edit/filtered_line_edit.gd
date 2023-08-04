@@ -222,6 +222,11 @@ func _on_text_changed(new_text: String) -> void:
 	if new_text_length < old_text_length:
 		old_text_length = new_text_length
 		old_text = new_text
+		# Avoid deleting only '0' from '0.'/'0-', delete all
+		if new_text == "-" or new_text == ".":
+			text = ""
+			old_text = ""
+			old_text_length = 0
 		return
 	# Else, need to determine the new character and the old text
 	# New character
