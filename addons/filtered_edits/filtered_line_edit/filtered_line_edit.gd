@@ -119,7 +119,6 @@ func _update_filter_mode() -> void:
 	elif filter_mode == 4:
 		reg.compile("[\\d.]")
 		filter = func filter_p0_f(new_char_: String) -> String:
-			print(new_char_)
 			if reg.search(new_char_) == null:
 				return ""
 			elif new_char_ == ".":
@@ -218,6 +217,13 @@ func _update_filter_mode() -> void:
 func _on_text_changed(new_text: String) -> void:
 	# Update new length
 	new_text_length = text.length()
+	# If you select all text and press `-`/`.` it would break because of a
+	## `new_text = ""`.
+	if new_text == "":
+		text = ""
+		old_text = ""
+		old_text_length = 0
+		return
 	# If deleting text, pass
 	if new_text_length < old_text_length:
 		old_text_length = new_text_length

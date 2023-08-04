@@ -221,6 +221,13 @@ func _on_text_changed() -> void:
 	var new_line_count: int = get_line_count()
 	# Update new length
 	new_text_length = get_line(current_caret_line).length()
+	# If you select all text and press `-`/`.` it would break because of a
+	## `new_text = ""`.
+	if new_text == "":
+		set_line(current_caret_line, "")
+		old_text = ""
+		old_text_length = 0
+		return
 	# If inserting/deleting new line, pass
 	if new_line_count != old_line_count:
 		old_line_count = new_line_count
