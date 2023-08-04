@@ -51,7 +51,7 @@ func _update_filter_mode() -> void:
 	if filter_mode == 0:
 		filter = func filter_none(new_char_: String) -> String:
 			return new_char_
-	# text
+	# no-num
 	elif filter_mode == 1:
 		reg.compile("\\d")
 		filter = func filter_no_num(new_char_: String) -> String:
@@ -64,7 +64,7 @@ func _update_filter_mode() -> void:
 		filter = func filter_p0_i(new_char_: String) -> String:
 			if reg.search(new_char_) == null:
 				return ""
-			elif text == "0" and caret_column != 0:
+			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
@@ -78,30 +78,34 @@ func _update_filter_mode() -> void:
 			if reg.search(new_char_) == null:
 				return ""
 			elif new_char_ == "-":
-				if text.contains("-"):
-					text = text.erase(0)
-					caret_column = text.length()
+				if old_text.contains("-"):
+					# When inserting new text, via insert_text_at_caret, caret is moved 1
+					if new_char_index != 0:
+						new_char_index -= 1
+					text = old_text.erase(0)
 					# Do this change to avoid passing new_text_length < old_text_length
 					new_text_length = old_text_length
 					return ""
-				elif text.length() == 0:
-					insert_text_at_caret("-0")
+				elif old_text_length == 0:
+					text = "-0"
+					new_char_index = text.length()
 					return ""
 				else:
-					caret_column = 0
-					insert_text_at_caret("-")
-					caret_column = text.length()
+					text = old_text.insert(0, "-")
+					new_char_index += 1
 					return ""
-			elif text == "0" and caret_column != 0:
+			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
 				else:
 					return ""
-			elif text == "-0" and caret_column != 0:
+			elif old_text == "-0":
 				if new_char_ != "0":
-					text = "-"
-					caret_column = text.length()
+					if new_char_index == 2:
+						text = "-%s" % new_char_
+						new_char_index = text.length()
+						return ""
 				else:
 					return ""
 			return new_char_
@@ -112,14 +116,24 @@ func _update_filter_mode() -> void:
 			if reg.search(new_char_) == null:
 				return ""
 			elif new_char_ == ".":
-				if text.contains("."):
+				if old_text.contains("."):
 					return ""
-				elif text.length() == 0:
-					insert_text_at_caret("0")
-			elif text == "0" and caret_column != 0:
+				elif old_text_length == 0:
+					text = "0."
+					new_char_index = text.length()
+					return ""
+			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
+				else:
+					return ""
+			elif old_text == "0.":
+				if new_char_ != "0":
+					if new_char_index == 1:
+						text = "%s." % new_char_
+						new_char_index = text.length() - 1
+						return ""
 				else:
 					return ""
 			return new_char_
@@ -127,38 +141,61 @@ func _update_filter_mode() -> void:
 	elif filter_mode == 5:
 		reg.compile("[\\d.-]")
 		filter = func filter_f(new_char_: String) -> String:
+			printt(old_text, new_char_)
 			if reg.search(new_char_) == null:
 				return ""
 			elif new_char_ == ".":
-				if text.contains("."):
+				if old_text.contains("."):
 					return ""
-				elif text.length() == 0:
-					insert_text_at_caret("0")
+				elif old_text_length == 0:
+					text = "0."
+					new_char_index = text.length()
+					return ""
+				elif old_text == "-0" and new_char_index != old_text_length - 1:
+					return ""
 			elif new_char_ == "-":
-				if text.contains("-"):
-					text = text.erase(0)
-					caret_column = text.length()
+				if old_text.contains("-"):
+					# When inserting new text, via insert_text_at_caret, caret is moved 1
+					if new_char_index != 0:
+						new_char_index -= 1
+					text = old_text.erase(0)
 					# Do this change to avoid passing new_text_length < old_text_length
 					new_text_length = old_text_length
 					return ""
-				elif text.length() == 0:
-					insert_text_at_caret("-0")
+				elif old_text_length == 0:
+					text = "-0"
+					new_char_index = text.length()
 					return ""
 				else:
-					caret_column = 0
-					insert_text_at_caret("-")
-					caret_column = text.length()
+					text = old_text.insert(0, "-")
+					new_char_index += 1
 					return ""
-			elif text == "0" and caret_column != 0:
+			elif old_text == "0":
 				if new_char_ != "0":
 					# delete_char_at_caret() cannot be placed here due to length checks
 					text = ""
 				else:
 					return ""
-			elif text == "-0" and caret_column != 0:
+			elif old_text == "-0":
 				if new_char_ != "0":
-					text = "-"
-					caret_column = text.length()
+					if new_char_index == 2:
+						text = "-%s" % new_char_
+						new_char_index = text.length()
+						return ""
+			elif old_text == "0.":
+				if new_char_ != "0":
+					if new_char_index == 1:
+						text = "%s." % new_char_
+						new_char_index = text.length() - 1
+						return ""
+				else:
+					return ""
+			elif old_text == "-0.":
+				if new_char_ != "0":
+					if new_char_index == 2:
+						text = "-%s." % new_char_
+						new_char_index = text.length()
+						return ""
 				else:
 					return ""
 			return new_char_
@@ -182,23 +219,23 @@ func _on_text_changed(new_text: String) -> void:
 	old_text = left_text + right_text
 	# Go back to the old text to decide insertion
 	text = old_text
-	# Set the caret at the right position for insertion
-	caret_column = new_char_index
 	# Filtering
 	new_char = filter.call(new_char)
+	# Set the caret at the right position for insertion
+	caret_column = new_char_index
 	# Insert new text at the right position
 	insert_text_at_caret(new_char)
 	# Update old length
 	old_text_length = new_text_length
-	# Clamp value
-	clamp_text_value()
 
 
 ## Clamps the numeric value of the text if [param filter_mode] is a numeric mode.
-func clamp_text_value() -> void:
+## Note that since float("x.") = float("-x.") = 0 and similars (x is a digit),
+## information is lost if clamping is done while typing.
+## Clamp only when typing is finished.
+func clamp_text() -> void:
 	if filter_mode < 2:
 		return
 	var value: float = float(text)
 	value = clamp(value, min_value, max_value)
 	text = str(value)
-	caret_column = new_char_index + 1

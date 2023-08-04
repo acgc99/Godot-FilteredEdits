@@ -18,9 +18,11 @@ layout_mode = 1
 offset_right = 287.0
 offset_bottom = 44.0
 size_flags_horizontal = 3
+text = "128"
 script = ExtResource("1_qbigl")
-filter_mode = 2
-max_value = 10.0
+filter_mode = 3
+max_value = 100.0
+min_value = -100.0
 
 [node name="FilteredTextEdit" type="TextEdit" parent="."]
 layout_mode = 1
@@ -30,7 +32,22 @@ anchor_right = 1.0
 offset_left = -522.0
 offset_bottom = 220.0
 grow_horizontal = 0
+text = "123
+100
+12
+-120"
 script = ExtResource("2_k0bgo")
 filter_mode = 5
-max_value = 10.0
-min_value = -10.0
+max_value = 100.0
+min_value = -100.0
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 80.0
+offset_right = 288.0
+offset_bottom = 140.0
+text = "a"
+
+[connection signal="focus_exited" from="LineEdit" to="." method="_on_line_edit_focus_exited"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
