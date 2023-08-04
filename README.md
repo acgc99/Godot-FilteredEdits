@@ -1,6 +1,6 @@
 ## Godot-FilteredEdits
 
-Extends base nodes `LineEdit` and `TextEdit` with `FilteredLineEdit` and `FilteredTextEdit`, respectively, to filter user input. `FilteredLineEdit` also allows numeric text value clamping.
+Extends base nodes `LineEdit` and `TextEdit` with `FilteredLineEdit` and `FilteredTextEdit`, respectively, to filter user input. It also allows numeric text value clamping.
 
 ---
 
@@ -14,12 +14,15 @@ Filter modes:
 
 Notes:
 - "." and "-" count as characters in max length.
-- `FilteredLineEdit` can clamp text numeric value when a numeric filter mode is selected, but `FilteredTextEdit` cannot (base class lacks of `text_submitted` signal).
-- I [requested](https://github.com/godotengine/godot-proposals/issues/7193) these features to be implemented in base Godot, that would require changing base node signals. Meanwhile, I created this workaround.
+- `FilteredLineEdit.clamp_text`, `FilteredTextEdit.clamp_line`, `FilteredTextEdit.clamp_lines` to clamp values.
+- If there is no text and you press `-`/`.` (in the right `filter_mode`) it will write `-0`/`0.` respectively. Similarly, if you delete `0` from `-0`/`0.` the `-`/`.` will also be deleted.
+- I [requested](https://github.com/godotengine/godot-proposals/issues/7193) filter features to be implemented in base Godot, that would require changing base node signals. Meanwhile, I created this workaround.
 
 #### Known issues
 
 - If you type very quickly in a numeric filter mode mixing numbers and letters, letters may pass the filtering. I think this is a limitation by how `LineEdit` and `TextEdit` handle input.
+- Won't fix issue [Limitation: select all text and press `-`/`.`](https://github.com/acgc99/Godot-FilteredEdits/issues/15#issue).
+- There might be some bugs, check issues and open a new one if you find some.
 
 ---
 
