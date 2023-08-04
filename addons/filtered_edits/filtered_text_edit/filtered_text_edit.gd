@@ -257,7 +257,7 @@ func _on_text_changed() -> void:
 	# Insert new text at the right position
 	insert_text_at_caret(new_char)
 	# Update old length
-	old_text_length = new_text_length
+	old_text_length = get_line(current_caret_line).length()
 
 
 ## Clamps the numeric value of the text if [param filter_mode] is a numeric mode.

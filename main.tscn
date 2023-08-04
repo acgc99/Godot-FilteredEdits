@@ -36,7 +36,7 @@ text = "123
 12
 -120"
 script = ExtResource("2_k0bgo")
-filter_mode = 5
+filter_mode = 3
 max_value = 100.0
 min_value = -100.0
 

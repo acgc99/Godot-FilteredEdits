@@ -228,6 +228,7 @@ func _on_text_changed(new_text: String) -> void:
 	# If deleting text, pass
 	if new_text_length < old_text_length:
 		old_text_length = new_text_length
+		old_text = new_text
 		return
 	# Else, need to determine the new character and the old text
 	# New character
@@ -246,7 +247,8 @@ func _on_text_changed(new_text: String) -> void:
 	# Insert new text at the right position
 	insert_text_at_caret(new_char)
 	# Update old length
-	old_text_length = new_text_length
+	old_text = text
+	old_text_length = text.length()
 
 
 ## Clamps the numeric value of the text if [param filter_mode] is a numeric mode.
