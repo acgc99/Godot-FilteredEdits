@@ -1,9 +1,9 @@
 extends Control
 
 func _ready():
-#	get_node("FilteredLineEdit").grab_focus()
+	get_node("FilteredLineEdit").grab_focus()
 #	get_node("FilteredTextEdit").grab_focus()
-	get_node("FilteredLineEdit").clamp_text()
+#	get_node("FilteredLineEdit").clamp_text()
 	for i in range(get_node("FilteredTextEdit").get_line_count()):
 		get_node("FilteredTextEdit").clamp_line(i)
 

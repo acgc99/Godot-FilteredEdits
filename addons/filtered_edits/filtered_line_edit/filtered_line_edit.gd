@@ -149,7 +149,6 @@ func _update_filter_mode() -> void:
 	elif filter_mode == 5:
 		reg.compile("[\\d.-]")
 		filter = func filter_f(new_char_: String) -> String:
-			printt(old_text, new_char_)
 			if reg.search(new_char_) == null:
 				return ""
 			elif new_char_ == ".":
@@ -160,6 +159,12 @@ func _update_filter_mode() -> void:
 					new_char_index = text.length()
 					return ""
 				elif old_text == "-0" and new_char_index != old_text_length - 1:
+					return ""
+				# Avoid things like '-.0'
+				elif old_text.contains("-") and new_char_index == 1:
+					return ""
+				# Avoid things like '.0'
+				elif new_char_index == 0:
 					return ""
 			elif new_char_ == "-":
 				if old_text.contains("-"):

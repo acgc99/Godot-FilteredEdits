@@ -163,6 +163,12 @@ func _update_filter_mode() -> void:
 					return ""
 				elif old_text == "-0" and new_char_index != old_text_length - 1:
 					return ""
+				# Avoid things like '-.0'
+				elif old_text.contains("-") and new_char_index == 1:
+					return ""
+				# Avoid things like '.0'
+				elif new_char_index == 0:
+					return ""
 			elif new_char_ == "-":
 				if old_text.contains("-"):
 					set_line(current_caret_line, get_line(current_caret_line).erase(0))
