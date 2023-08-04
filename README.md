@@ -13,7 +13,7 @@ Filter modes:
 - `f` float.
 
 Notes:
-- "." and "-" count as characters in max length.
+- "." and "-" count as characters in `FilteredLineEdit.max_length`.
 - `FilteredLineEdit.clamp_text`, `FilteredTextEdit.clamp_line`, `FilteredTextEdit.clamp_lines` to clamp values.
 - If there is no text and you press `-`/`.` (in the right `filter_mode`) it will write `-0`/`0.` respectively. Similarly, if you delete `0` from `-0`/`0.` the `-`/`.` will also be deleted.
 - I [requested](https://github.com/godotengine/godot-proposals/issues/7193) filter features to be implemented in base Godot, that would require changing base node signals. Meanwhile, I created this workaround.
