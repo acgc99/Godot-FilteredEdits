@@ -12,10 +12,14 @@ Filter modes:
 - `+0f` positive or zero float.
 - `f` float.
 
+Features:
+- **Filtering**. Filters user input according to `filter_mode`.
+- **Clamping**.`FilteredLineEdit.clamp_text`, `FilteredTextEdit.clamp_line`, `FilteredTextEdit.clamp_lines` to clamp values.
+- **Autocompletion**. If there is no text and you press `-`/`.` (in the right `filter_mode`) it will write `-0`/`0.` respectively. Similarly, if you delete `0` from `-0`/`0.` the `-`/`.` will also be deleted.
+
 Notes:
+- You might also find useful `LineEdit.virtual_keyboard_enabled` and `LineEdit.virtual_keyboard_type`. `TextEdit.virtual_keyboard_enabled` is there but `TextEdit.virtual_keyboard_type` is not (Godot 4.1), see [this](https://github.com/godotengine/godot-proposals/issues/7449). Also, consider that the user could use the physical keyboard to introduce undesired characters.
 - "." and "-" count as characters in `FilteredLineEdit.max_length`.
-- `FilteredLineEdit.clamp_text`, `FilteredTextEdit.clamp_line`, `FilteredTextEdit.clamp_lines` to clamp values.
-- If there is no text and you press `-`/`.` (in the right `filter_mode`) it will write `-0`/`0.` respectively. Similarly, if you delete `0` from `-0`/`0.` the `-`/`.` will also be deleted.
 - I [requested](https://github.com/godotengine/godot-proposals/issues/7193) filter features to be implemented in base Godot, that would require changing base node signals. Meanwhile, I created this workaround.
 
 #### Known issues
