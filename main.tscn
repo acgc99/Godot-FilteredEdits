@@ -37,17 +37,6 @@ text = "123
 12
 -120"
 script = ExtResource("2_k0bgo")
-filter_mode = 5
+filter_mode = 2
 max_value = 100.0
 min_value = -100.0
-
-[node name="LineEdit" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 80.0
-offset_right = 288.0
-offset_bottom = 140.0
-text = "a"
-
-[connection signal="focus_exited" from="LineEdit" to="." method="_on_line_edit_focus_exited"]
-[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]

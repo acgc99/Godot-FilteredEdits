@@ -41,6 +41,10 @@ var new_char_index: int
 ## Function called for filtering.
 var filter: Callable =  func filter_none(new_char_: String) -> String:
 	return new_char_
+## Control variable. If not used, when clamping values, [code]_on_text_changed[/code]
+## is called at the end of all clampings, creating a bug if first line is clamped.
+## This is the easiest way to solve this issue.
+var _clamping: bool = false
 
 
 func _ready():
@@ -224,6 +228,9 @@ func _update_filter_mode() -> void:
 
 ## Manages text input and filtering.
 func _on_text_changed() -> void:
+	# Avoid problems when clamping at first line
+	if _clamping:
+		return
 	current_caret_line = get_caret_line()
 	var new_text: String = get_line(current_caret_line)
 	var new_line_count: int = get_line_count()
@@ -278,11 +285,10 @@ func _on_text_changed() -> void:
 func clamp_line(i: int) -> void:
 	if filter_mode < 2:
 		return
+	_clamping = true
 	var value: float = float(get_line(i))
 	value = clamp(value, min_value, max_value)
-#	printt(get_line(i), value)
 	set_line(i, str(value))
-#	printt(get_line(i))
 
 
 ## Clamps the numeric value of the text if [param filter_mode] is a numeric mode.
@@ -292,6 +298,7 @@ func clamp_line(i: int) -> void:
 func clamp_lines() -> void:
 	if filter_mode < 2:
 		return
+	_clamping = true
 	var value: float
 	for i in range(get_line_count()):
 		value = float(get_line(i))
