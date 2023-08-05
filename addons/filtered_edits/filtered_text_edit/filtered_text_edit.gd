@@ -35,6 +35,8 @@ var new_text_length: int = 0
 ## Character to be added
 var new_char: String = ""
 ## Index of [param new_char] in [param new_text] in [code]_on_text_changed[/code].
+## It is the right column for the caret ([code]new_char_index = caret_column - 1[/code])
+## since when [code]insert_text_at_caret[/code] is called, caret is moved forward.
 var new_char_index: int
 ## Function called for filtering.
 var filter: Callable =  func filter_none(new_char_: String) -> String:
@@ -115,7 +117,7 @@ func _update_filter_mode() -> void:
 				else:
 					return ""
 			# Avoid things like '1-2'
-			elif new_char != "-" and old_text.contains("-") and new_char_index == 0:
+			elif new_char_ != "-" and old_text.contains("-") and new_char_index == 0:
 				return ""
 			return new_char_
 	# +0f
@@ -209,7 +211,7 @@ func _update_filter_mode() -> void:
 						new_char_index = get_line(current_caret_line).length()
 						return ""
 			# Avoid things like '1-2'
-			elif new_char != "-" and old_text.contains("-") and new_char_index == 0:
+			elif new_char_ != "-" and old_text.contains("-") and new_char_index == 0:
 				return ""
 			return new_char_
 
