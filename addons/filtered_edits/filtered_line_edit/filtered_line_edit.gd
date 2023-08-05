@@ -114,7 +114,7 @@ func _update_filter_mode() -> void:
 				else:
 					return ""
 			# Avoid things like '1-2'
-			elif new_char_ != "-" and old_text.contains("-") and new_char_index == 0:
+			elif old_text.contains("-") and new_char_index == 0:
 				return ""
 			return new_char_
 	# +0f
@@ -190,6 +190,9 @@ func _update_filter_mode() -> void:
 					return ""
 			# 0 replacement
 			elif old_text == "-0":
+				# Avoid things like '1-0'
+				if old_text.contains("-") and new_char_index == 0:
+					return ""
 				if new_char_ != "0":
 					if new_char_index == 2:
 						text = "-%s" % new_char_
@@ -204,13 +207,16 @@ func _update_filter_mode() -> void:
 						return ""
 			# 0 replacement
 			elif old_text == "-0.":
+				# Avoid things like '1-0.'
+				if old_text.contains("-") and new_char_index == 0:
+					return ""
 				if new_char_ != "0":
 					if new_char_index == 2:
 						text = "-%s." % new_char_
 						new_char_index = text.length()
 						return ""
-			# Avoid things like '1-2'
-			elif new_char_ != "-" and old_text.contains("-") and new_char_index == 0:
+			# Avoid things like '1-2' (see '0 replacement's to avoid '1-0', '1-0.')
+			elif old_text.contains("-") and new_char_index == 0:
 				return ""
 			return new_char_
 
