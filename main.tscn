@@ -18,6 +18,7 @@ layout_mode = 1
 offset_right = 287.0
 offset_bottom = 44.0
 size_flags_horizontal = 3
+text = "42"
 script = ExtResource("1_qbigl")
 filter_mode = 3
 max_value = 100.0
