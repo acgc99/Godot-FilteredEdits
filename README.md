@@ -2,6 +2,8 @@
 
 Extends base nodes `LineEdit` and `TextEdit` with `FilteredLineEdit` and `FilteredTextEdit`, respectively, to filter user input. It also allows numeric text value clamping.
 
+If you download the full repository, you will get a small showcase project.
+
 ---
 
 Filter modes:
