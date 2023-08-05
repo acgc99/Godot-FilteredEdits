@@ -247,8 +247,8 @@ func _on_text_changed(new_text: String) -> void:
 	new_char_index = caret_column - 1
 	new_char = text[new_char_index]
 	# Old text
-	var left_text = new_text.substr(0, new_char_index)
-	var right_text = new_text.substr(new_char_index+1, -1)
+	var left_text: String = new_text.substr(0, new_char_index)
+	var right_text: String = new_text.substr(new_char_index+1, -1)
 	old_text = left_text + right_text
 	# Go back to the old text to decide insertion
 	text = old_text

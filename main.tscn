@@ -13,25 +13,43 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v67m5")
 
-[node name="FilteredLineEdit" type="LineEdit" parent="."]
+[node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
-offset_right = 287.0
-offset_bottom = 44.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 297.0
+grow_horizontal = 2
+columns = 2
+
+[node name="LineLabel" type="RichTextLabel" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 size_flags_horizontal = 3
-text = "42"
+bbcode_enabled = true
+text = "FilteredLineEdit, [code]filter_mode = \"f\"[/code]"
+autowrap_mode = 0
+
+[node name="TextLabel" type="RichTextLabel" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "FilteredTextEdit, [code]filter_mode = \"+0i\"[/code]"
+autowrap_mode = 0
+
+[node name="FilteredLineEdit" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "420"
 script = ExtResource("1_qbigl")
-filter_mode = 3
+filter_mode = 5
 max_value = 100.0
 min_value = -100.0
 
-[node name="FilteredTextEdit" type="TextEdit" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -522.0
-offset_bottom = 220.0
-grow_horizontal = 0
+[node name="FilteredTextEdit" type="TextEdit" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "123
 100
 12
