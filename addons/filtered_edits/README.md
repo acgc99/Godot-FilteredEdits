@@ -4,6 +4,8 @@ Extends base nodes `LineEdit` and `TextEdit` with `FilteredLineEdit` and `Filter
 
 If you download the full repository, you will get a small showcase project.
 
+**Consider to download [Widgets](https://godotengine.org/asset-library/asset/2028) instead of this addon if you will use it.**
+
 ---
 
 Features:
