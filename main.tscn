@@ -17,34 +17,27 @@ script = ExtResource("1_v67m5")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 297.0
+offset_bottom = 160.0
 grow_horizontal = 2
 columns = 2
 
-[node name="LineLabel" type="RichTextLabel" parent="GridContainer"]
-custom_minimum_size = Vector2(0, 24)
+[node name="LabelLineEdit" type="Label" parent="GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "FilteredLineEdit, [code]filter_mode = \"f\"[/code]"
-autowrap_mode = 0
+text = "FilteredLineEdit with floats"
 
-[node name="TextLabel" type="RichTextLabel" parent="GridContainer"]
-custom_minimum_size = Vector2(0, 24)
+[node name="LabelTextEdit" type="Label" parent="GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "FilteredTextEdit, [code]filter_mode = \"+0i\"[/code]"
-autowrap_mode = 0
+text = "FilteredTextEdit with positive integers"
 
 [node name="FilteredLineEdit" type="LineEdit" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 text = "420"
 script = ExtResource("1_qbigl")
 filter_mode = 5
-max_value = 100.0
-min_value = -100.0
+value_max = 100.0
+value_min = 0.0
 
 [node name="FilteredTextEdit" type="TextEdit" parent="GridContainer"]
 layout_mode = 2
@@ -56,5 +49,5 @@ text = "123
 -120"
 script = ExtResource("2_k0bgo")
 filter_mode = 2
-max_value = 100.0
-min_value = -100.0
+value_max = 100.0
+value_min = -10.0
